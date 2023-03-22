@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  path_provider: 2.0.12
   flame: 1.2.0
   flame_tiled: 1.5.0
   tiled: 0.8.1
