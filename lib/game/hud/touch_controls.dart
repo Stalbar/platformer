@@ -44,6 +44,12 @@ class TouchControls extends HudMarginComponent {
           srcSize: Vector2.all(160),
           size: Vector2.all(60),
         ),
+        buttonDown: SpriteComponent.fromImage(
+          arrows,
+          srcPosition: Vector2(200, 200),
+          srcSize: Vector2.all(160),
+          size: Vector2.all(60),
+        ),
         margin: const EdgeInsets.only(bottom: offset, left: offset),
         onPressed: () {
           _player?.hAxisInput = -1;
@@ -55,6 +61,12 @@ class TouchControls extends HudMarginComponent {
 
     final rightButton = HudButtonComponent(
         button: SpriteComponent.fromImage(
+          arrows,
+          srcPosition: Vector2(0, 200),
+          srcSize: Vector2.all(160),
+          size: Vector2.all(60),
+        ),
+        buttonDown: SpriteComponent.fromImage(
           arrows,
           srcPosition: Vector2(0, 200),
           srcSize: Vector2.all(160),
@@ -74,6 +86,12 @@ class TouchControls extends HudMarginComponent {
 
     final jumpButton = HudButtonComponent(
         button: SpriteComponent.fromImage(
+          arrows,
+          srcPosition: Vector2(0, 400),
+          srcSize: Vector2.all(160),
+          size: Vector2.all(60),
+        ),
+        buttonDown: SpriteComponent.fromImage(
           arrows,
           srcPosition: Vector2(0, 400),
           srcSize: Vector2.all(160),
