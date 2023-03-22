@@ -37,9 +37,6 @@ class Spike extends SpriteComponent with CollisionCallbacks, HasGameRef<SimplePl
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Player) {
       other.hit();
-      if (gameRef.playerData.health.value > 0)  {
-        gameRef.playerData.health.value -= 1;
-      }
     }
     super.onCollisionStart(intersectionPoints, other);
   }

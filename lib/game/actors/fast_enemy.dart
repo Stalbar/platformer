@@ -72,9 +72,6 @@ class FastEnemy extends SpriteComponent with CollisionCallbacks, HasGameRef<Simp
         other.jump();
       } else {
         other.hit();
-        if (gameRef.playerData.health.value > 0)  {
-          gameRef.playerData.health.value -= 1;
-        }
       }
     }
     super.onCollisionStart(intersectionPoints, other);

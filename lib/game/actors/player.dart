@@ -5,13 +5,15 @@ import 'package:flame/image_composition.dart';
 import 'package:flutter/src/services/raw_keyboard.dart';
 import 'package:platformer/game/actors/platform.dart';
 import 'package:platformer/game/game.dart';
+import 'dart:async' as asyn;
 
-class Player extends SpriteComponent with CollisionCallbacks, KeyboardHandler, HasGameRef<SimplePlatformer>{
-  
+class Player extends SpriteComponent
+    with CollisionCallbacks, KeyboardHandler, HasGameRef<SimplePlatformer> {
   final Vector2 _velocity = Vector2.zero();
   int _hAxisInput = 0;
   bool _jumpInput = false;
   bool _isOnGround = false;
+  bool _canBeHit = true;
 
   final Vector2 _up = Vector2(0, -1);
   final double _moveSpeed = 200;
@@ -91,7 +93,7 @@ class Player extends SpriteComponent with CollisionCallbacks, KeyboardHandler, H
     _hAxisInput += keysPressed.contains(LogicalKeyboardKey.keyA) ? -1 : 0;
     _hAxisInput += keysPressed.contains(LogicalKeyboardKey.keyD) ? 1 : 0;
 
-    _jumpInput = keysPressed.contains(LogicalKeyboardKey.space);    
+    _jumpInput = keysPressed.contains(LogicalKeyboardKey.space);
 
     return true;
   }
@@ -100,7 +102,9 @@ class Player extends SpriteComponent with CollisionCallbacks, KeyboardHandler, H
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Platform) {
       if (intersectionPoints.length == 2) {
-        final mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
+        final mid = (intersectionPoints.elementAt(0) +
+                intersectionPoints.elementAt(1)) /
+            2;
         final collisionNormal = absoluteCenter - mid;
         final separateDistance = (size.x / 2) - collisionNormal.length;
 
@@ -117,15 +121,19 @@ class Player extends SpriteComponent with CollisionCallbacks, KeyboardHandler, H
   }
 
   void hit() {
-    add(
-      OpacityEffect.fadeOut(
-        EffectController(
-          alternate: true,
-          duration: 0.1,
-          repeatCount: 1,
-        )
-      )
-    );
+    if (!_canBeHit) {
+      return;
+    }
+    if (gameRef.playerData.health.value > 0)  {
+          gameRef.playerData.health.value -= 1;
+    }
+    _canBeHit = false;
+    asyn.Timer(const Duration(milliseconds: 1000), removeInvulnerable);
+    add(OpacityEffect.fadeOut(EffectController(
+      alternate: true,
+      duration: 0.1,
+      repeatCount: 5,
+    )));
   }
 
   void jump() {
@@ -139,5 +147,13 @@ class Player extends SpriteComponent with CollisionCallbacks, KeyboardHandler, H
 
   set jumpInput(bool value) {
     _jumpInput = value;
+  }
+
+  set canBeHit(bool value) {
+    _canBeHit = value;
+  }
+
+  void removeInvulnerable() {
+    _canBeHit = true;
   }
 }

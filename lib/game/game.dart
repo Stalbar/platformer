@@ -32,9 +32,6 @@ class SimplePlatformer extends FlameGame with HasTappables, HasCollisionDetectio
     camera.viewport = FixedResolutionViewport(
       Vector2(640, 330),
     );
-
-   // touchControls = TouchControls(position: Vector2.zero(), priority: 1);
-  //  add(touchControls);
     
     return super.onLoad();
   }
