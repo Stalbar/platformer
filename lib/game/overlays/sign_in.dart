@@ -79,11 +79,11 @@ class _SignInMenuState extends State<SignInMenu> {
                     if (signIn(usernameController.text, passwordController.text)) {
                       widget.gameRef.overlays.remove(MainMenu.id);
                       widget.gameRef.overlays.remove(SignInMenu.id);
-                      widget.gameRef.add(GamePlay());
+                      widget.gameRef.add(GamePlay(username: usernameController.text));
                     }
                   },
                   child: const Text(
-                    'Register',
+                    'Sign in',
                     style: TextStyle(
                       color: Colors.white,
                     ),

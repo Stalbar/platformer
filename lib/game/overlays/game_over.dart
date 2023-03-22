@@ -1,15 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:platformer/game/game.dart';
+import 'package:platformer/game/model/storage.dart';
+import 'package:platformer/game/model/user_score.dart';
 
 import '../game_play.dart';
 import 'main_menu.dart';
 
 
-class GameOver extends StatelessWidget {
+class GameOver extends StatefulWidget {
   static const id = 'GameOver';
   final SimplePlatformer gameRef;
+  final UsersStorage storage;
 
-  const GameOver({super.key, required this.gameRef});
+  const GameOver({super.key, required this.gameRef, required this.storage});
+
+  @override
+  State<GameOver> createState() => _GameOverState();
+}
+
+class _GameOverState extends State<GameOver> {
+  late List<UserScore> scores;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) { 
+      loadScores();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +41,12 @@ class GameOver extends StatelessWidget {
               width: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  gameRef.overlays.remove(id);
-                  gameRef.resumeEngine();
-                  gameRef.removeAll(gameRef.children);
-                  gameRef.add(GamePlay());
+                  String username = widget.gameRef.playerData.userName;
+                  writeScore(username, widget.gameRef.playerData.score.value);
+                  widget.gameRef.overlays.remove(GameOver.id);
+                  widget.gameRef.resumeEngine();
+                  widget.gameRef.removeAll(widget.gameRef.children);
+                  widget.gameRef.add(GamePlay(username: username));
                 },
                 child: const Text('Restart'),
               ),
@@ -35,10 +55,12 @@ class GameOver extends StatelessWidget {
               width: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  gameRef.overlays.remove(id);
-                  gameRef.resumeEngine();
-                  gameRef.removeAll(gameRef.children);
-                  gameRef.overlays.add(MainMenu.id);
+                  String username = widget.gameRef.playerData.userName;
+                  writeScore(username, widget.gameRef.playerData.score.value);
+                  widget.gameRef.overlays.remove(GameOver.id);
+                  widget.gameRef.resumeEngine();
+                  widget.gameRef.removeAll(widget.gameRef.children);
+                  widget.gameRef.overlays.add(MainMenu.id);
                 },
                 child: const Text('Exit'),
               ), 
@@ -47,5 +69,14 @@ class GameOver extends StatelessWidget {
         )
       )
     );
+  }
+
+  Future loadScores() async {
+    scores = await widget.storage.readScore();
+  }
+
+  void writeScore(String username, int score) {
+    scores.add(UserScore(username: username, score: score));
+    widget.storage.writeScores(scores);
   }
 }

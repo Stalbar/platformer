@@ -4,6 +4,7 @@ import 'package:flame/image_composition.dart';
 import 'package:flame/input.dart';
 import 'package:platformer/game/hud/touch_controls.dart';
 import 'package:platformer/game/model/player_data.dart';
+import 'package:platformer/game/model/user.dart';
 
 
 

@@ -4,11 +4,14 @@ import 'package:platformer/game/game.dart';
 import 'hud/hud.dart';
 import 'hud/touch_controls.dart';
 import 'level/level.dart';
+import 'model/user.dart';
 
 class GamePlay extends Component with HasGameRef<SimplePlatformer> {
   Level? _currentLevel;
 
   final hud = Hud(priority: 1);
+  final String username;
+  GamePlay({required this.username});
 
   @override
   Future<void>? onLoad() async {
@@ -18,7 +21,7 @@ class GamePlay extends Component with HasGameRef<SimplePlatformer> {
     gameRef.add(gameRef.touchControls);
     gameRef.playerData.score.value = 0;
     gameRef.playerData.health.value = 3;
-
+    gameRef.playerData.userName = username;
     return super.onLoad();
   }
 

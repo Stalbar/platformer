@@ -6,6 +6,7 @@ import 'package:platformer/game/model/storage.dart';
 import 'package:platformer/game/overlays/registration.dart';
 
 import 'game/overlays/game_over.dart';
+import 'game/overlays/leaderboard.dart';
 import 'game/overlays/main_menu.dart';
 import 'game/overlays/pause_menu.dart';
 import 'game/overlays/sign_in.dart';
@@ -34,9 +35,10 @@ class MyApp extends StatelessWidget {
           overlayBuilderMap: {
             MainMenu.id: (context, game) => MainMenu(gameRef: game),
             PauseMenu.id: (context, game) => PauseMenu(gameRef: game),
-            GameOver.id: (context, game) => GameOver(gameRef: game),
+            GameOver.id: (context, game) => GameOver(gameRef: game, storage: _storage,),
             RegistrationMenu.id: (context, game) => RegistrationMenu(gameRef: game, storage: _storage,), 
-            SignInMenu.id: (context, game) => SignInMenu(gameRef: game, storage: _storage)
+            SignInMenu.id: (context, game) => SignInMenu(gameRef: game, storage: _storage),
+            Leaderboard.id: (context, game) => Leaderboard(gameRef: game, storage: _storage,)
           },
           initialActiveOverlays: const [MainMenu.id],
         )
