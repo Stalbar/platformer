@@ -12,7 +12,7 @@ class GamePlay extends Component with HasGameRef<SimplePlatformer> {
 
   @override
   Future<void>? onLoad() async {
-    loadLevel('Level2.tmx');
+    loadLevel('Level1.tmx');
     await gameRef.add(hud);
     gameRef.touchControls = TouchControls(gameRef.arrows, position: Vector2.zero(), priority: 1);
     gameRef.add(gameRef.touchControls);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="91">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="30" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="93">
  <tileset firstgid="1" source="Spritesheet.tsx"/>
  <tileset firstgid="8" source="blob_stand2.tsx"/>
  <tileset firstgid="9" source="Crown spritesheet.tsx"/>
@@ -16,17 +16,9 @@
   <object id="54" type="Coin" gid="4" x="832" y="96" width="32" height="32"/>
   <object id="55" type="Coin" gid="4" x="704" y="128" width="32" height="32"/>
   <object id="56" type="Coin" gid="4" x="640" y="128" width="32" height="32"/>
-  <object id="57" type="Coin" gid="4" x="512" y="320" width="32" height="32"/>
-  <object id="58" type="Coin" gid="4" x="448" y="320" width="32" height="32"/>
-  <object id="59" type="Coin" gid="4" x="384" y="320" width="32" height="32"/>
   <object id="60" type="Coin" gid="4" x="256" y="256" width="32" height="32"/>
   <object id="61" type="Coin" gid="4" x="256" y="192" width="32" height="32"/>
   <object id="62" type="Player" gid="1" x="32" y="192" width="32" height="32"/>
-  <object id="63" type="Enemy" gid="2" x="128" y="320" width="32" height="32">
-   <properties>
-    <property name="Target" type="object" value="75"/>
-   </properties>
-  </object>
   <object id="64" type="Enemy" gid="2" x="608" y="128" width="32" height="32">
    <properties>
     <property name="Target" type="object" value="76"/>
@@ -34,7 +26,7 @@
   </object>
   <object id="65" type="Door" gid="3" x="896" y="320" width="64" height="64">
    <properties>
-    <property name="NextLevel" value="Level1.tmx"/>
+    <property name="NextLevel" value="Level3.tmx"/>
    </properties>
   </object>
   <object id="75" x="576" y="288">
@@ -43,9 +35,12 @@
   <object id="76" x="736" y="96">
    <point/>
   </object>
-  <object id="85" type="Spike" gid="29" x="448" y="224" width="32" height="32"/>
-  <object id="86" type="Spike" gid="29" x="480" y="224" width="32" height="32"/>
-  <object id="87" type="Spike" gid="29" x="512" y="224" width="32" height="32"/>
+  <object id="91" type="FastEnemy" gid="8" x="128" y="320" width="32" height="32">
+   <properties>
+    <property name="Target" type="object" value="75"/>
+   </properties>
+  </object>
+  <object id="92" type="Star" gid="30" x="448" y="320" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="4" name="Platforms">
   <object id="68" x="0" y="192" width="96" height="192"/>
