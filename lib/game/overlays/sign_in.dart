@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:platformer/game/model/storage.dart';
+import 'package:platformer/game/overlays/main_menu.dart';
 
 import '../game.dart';
+import '../game_play.dart';
 import '../model/user.dart';
 
-class RegistrationMenu extends StatefulWidget {
-  static const id = 'Registration Menu';
+class SignInMenu extends StatefulWidget {
+  static const id = 'SignInMenu';
   final SimplePlatformer gameRef;
   final UsersStorage storage;
-  const RegistrationMenu({super.key, required this.gameRef, required this.storage});
+  const SignInMenu({super.key, required this.gameRef, required this.storage});
 
   @override
-  State<RegistrationMenu> createState() => _RegistrationMenuState();
+  State<SignInMenu> createState() => _SignInMenuState();
 }
 
-class _RegistrationMenuState extends State<RegistrationMenu> {
+class _SignInMenuState extends State<SignInMenu> {
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -71,9 +73,10 @@ class _RegistrationMenuState extends State<RegistrationMenu> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (registerUser(usernameController.text, passwordController.text)) {
-                  widget.gameRef.overlays.remove(RegistrationMenu.id);
-                  
+                if (signIn(usernameController.text, passwordController.text)) {
+                  widget.gameRef.overlays.remove(MainMenu.id);
+                  widget.gameRef.overlays.remove(SignInMenu.id);
+                  widget.gameRef.add(GamePlay());
                 }
               },
               child: const Text(
@@ -89,7 +92,7 @@ class _RegistrationMenuState extends State<RegistrationMenu> {
     );
   }
 
-  bool registerUser(String username, String password ) {
+  bool signIn(String username, String password ) {
     if (username == '' || password == '') {
       showDialog(
         context: context, 
@@ -98,9 +101,12 @@ class _RegistrationMenuState extends State<RegistrationMenu> {
       );
       return false;
     }
-    users.add(User(username: username, password: password));
-    widget.storage.writeUsers(users);
-    return true;
+    for (var user in users) {
+      if (user.username == username && user.password == password) {
+        return true;
+      }
+    }
+    return false;
   }
 
   Future loadUsers() async {
