@@ -71,20 +71,36 @@ class _SignInMenuState extends State<SignInMenu> {
               ),
               controller: passwordController,
             ),
-            ElevatedButton(
-              onPressed: () {
-                if (signIn(usernameController.text, passwordController.text)) {
-                  widget.gameRef.overlays.remove(MainMenu.id);
-                  widget.gameRef.overlays.remove(SignInMenu.id);
-                  widget.gameRef.add(GamePlay());
-                }
-              },
-              child: const Text(
-                'Register',
-                style: TextStyle(
-                  color: Colors.white,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (signIn(usernameController.text, passwordController.text)) {
+                      widget.gameRef.overlays.remove(MainMenu.id);
+                      widget.gameRef.overlays.remove(SignInMenu.id);
+                      widget.gameRef.add(GamePlay());
+                    }
+                  },
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
+                ElevatedButton(
+                  onPressed: () {
+                    widget.gameRef.overlays.remove(SignInMenu.id);
+                  }, 
+                  child: const Text(
+                    'Back',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )
+                  )
+                )
+              ]
             )
           ],
         )

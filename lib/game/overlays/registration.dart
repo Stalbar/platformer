@@ -69,19 +69,34 @@ class _RegistrationMenuState extends State<RegistrationMenu> {
               ),
               controller: passwordController,
             ),
-            ElevatedButton(
-              onPressed: () {
-                if (registerUser(usernameController.text, passwordController.text)) {
-                  widget.gameRef.overlays.remove(RegistrationMenu.id);
-                  
-                }
-              },
-              child: const Text(
-                'Register',
-                style: TextStyle(
-                  color: Colors.white,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (registerUser(usernameController.text, passwordController.text)) {
+                      widget.gameRef.overlays.remove(RegistrationMenu.id);
+                    }
+                  },
+                  child: const Text(
+                    'Register',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
+                ElevatedButton(
+                  onPressed: () {
+                    widget.gameRef.overlays.remove(RegistrationMenu.id);
+                  },
+                  child: const Text(
+                    'Back',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )
+                  ),
+                )
+              ]
             )
           ],
         )
